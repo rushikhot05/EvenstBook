@@ -7,6 +7,7 @@ import {
     SET_CURRENT_USER,
     USER_LOADING
 } from "./types"
+// import { Redirect } from "react-router-dom";
 
 //Register the user
 export const registerUser = (userData, history) => dispatch => {
@@ -19,6 +20,30 @@ export const registerUser = (userData, history) => dispatch => {
                 payload: err.response.data
             })
         ); 
+};
+
+export const userProfile = (profileData, history) => dispatch => {
+    axios
+        .put("./api/users/profile")
+        .then(res => history.push("/dashboard"))
+        .catch(err => 
+            dispatch({
+                type:GET_ERRORS,
+                payload: err.response.data
+            })
+        );    
+};
+
+export const getProfile = (getData, history) => dispatch => {
+    axios
+        .get("./api/users/profile/email")
+        .then(res => history.push("/profile"))
+        .catch(err => 
+            dispatch({
+                type:GET_ERRORS,
+                payload: err.response.data
+            })
+        );    
 };
 
 //Login - Get user token

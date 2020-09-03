@@ -11,13 +11,14 @@ import Navbar from './components/layout/Navbar';
 import Landing from './components/layout/Landing';
 import Login from './components/auth/Login';
 import Register from './components/auth/Register';
+import Profile from './components/profile/Profile';
 import PrivateRoute from "./components/private-route/PrivateRoute";
 import Dashboard from "./components/dashboard/Dashboard";
 
 //Check for token to keep user logged in
-if (sessionStorage.jwtToken) {
+if (localStorage.jwtToken) {
   //Set auth token header auth
-  const token = sessionStorage.jwtToken;
+  const token = localStorage.jwtToken;
   setAuthToken(token);
   //Decode token and get user info and exp
   const decoded = jwt_decode(token);
@@ -46,7 +47,10 @@ class App extends Component {
           <Route exact path="/register" component={Register} />
           <Route exact path="/login" component={Login} />
           <Switch>
-            <PrivateRoute exact path="./dashboard" component= {Dashboard} />
+            <PrivateRoute exact path="/dashboard" component= {Dashboard} />
+            <Switch>
+              <PrivateRoute exact path="/profile" component={Profile} />
+            </Switch>
           </Switch>
         </div>
       </Router>

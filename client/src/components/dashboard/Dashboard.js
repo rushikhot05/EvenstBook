@@ -1,12 +1,18 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { logoutUser } from "../../actions/authActions";
+import { logoutUser, getProfile } from "../../actions/authActions";
 
 class Dashboard extends Component {
     onLogoutClick = e => {
         e.preventDefault();
         this.props.logoutUser();
+    };
+
+    onProfileClick = e => {
+        e.preventDefault();
+        this.props.getProfile();
+        this.props.history.push("/profile");
     };
 
     render() {
@@ -18,11 +24,22 @@ class Dashboard extends Component {
                         <h4>
                             <b>Hey there!</b> {user.name.split(" ")[0]}
                             <p className="flow-text grey-text text-darken-1">
-                                You are logged into EventsBook{" "}
+                                You are logged into {" "}
                                 <span style={{ fontFamily: "monospace" }}>EventsBook</span>
                                 app👏
                             </p>
                         </h4>
+                        <button 
+                            style={{
+                                width: "150px",
+                                borderRadius: "3px",
+                                letterSpacing: "1.5px",
+                                marginTop: "1rem"
+                            }}
+                            onClick={this.onProfileClick}
+                            className="btn btn-large waves-effect waves-light hoverable blue-accent-3">
+                                Profile
+                        </button>
                         <button 
                             style={{
                                 width: "150px",
@@ -43,6 +60,7 @@ class Dashboard extends Component {
 
 Dashboard.propTypes = {
     logoutUser: PropTypes.func.isRequired,
+    getProfile: PropTypes.func.isRequired,
     auth: PropTypes.object.isRequired
 };
 
@@ -52,5 +70,5 @@ const mapStateToProps = state => ({
 
 export default connect (
     mapStateToProps,
-    { logoutUser }
+    { logoutUser, getProfile }
 )(Dashboard);
