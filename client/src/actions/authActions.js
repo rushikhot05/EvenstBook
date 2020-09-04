@@ -22,31 +22,7 @@ export const registerUser = (userData, history) => dispatch => {
         ); 
 };
 
-export const userProfile = (profileData, history) => dispatch => {
-    axios
-        .put("./api/users/profile")
-        .then(res => history.push("/dashboard"))
-        .catch(err => 
-            dispatch({
-                type:GET_ERRORS,
-                payload: err.response.data
-            })
-        );    
-};
 
-export const getProfile = (getData, history) => dispatch => {
-    axios
-        .get("./api/users/profile/email")
-        .then(res => history.push("/profile"))
-        .catch(err => 
-            dispatch({
-                type:GET_ERRORS,
-                payload: err.response.data
-            })
-        );    
-};
-
-//Login - Get user token
 export const loginUser = userData => dispatch => {
     axios
         .post("./api/users/login", userData)
@@ -61,6 +37,7 @@ export const loginUser = userData => dispatch => {
             const decoded = jwt_decode(token);
             //Set current user
             dispatch(setCurrentUser(decoded));
+            
         })
         .catch(err => 
             dispatch({
@@ -69,6 +46,38 @@ export const loginUser = userData => dispatch => {
             })
         );
 };
+
+
+ 
+export const userProfile = (profileData, history) => dispatch => {
+    var email__=localStorage.getItem('email');
+    axios
+        .put("/api/users/profile/"+ email__,profileData)
+        .then(res => history.push("/dashboard"))
+        .catch(err => 
+            dispatch({
+                type:GET_ERRORS,
+                payload: err.response.data
+            })
+        );    
+};
+
+
+export const getProfile = (getData, history) => dispatch => {
+    var email__=localStorage.getItem('email');
+    axios
+        .get("/api/users/profile/"+email__)
+        .then(res => history.push("/profile"))
+        .catch(err => 
+            dispatch({
+                type:GET_ERRORS,
+                payload: err.response
+            })
+        );    
+};
+
+//Login - Get user token
+
 
 //Set logged in user
 export const setCurrentUser = decoded => {

@@ -5,7 +5,9 @@ import M from 'materialize-css/dist/js/materialize.min.js';
 import MultiSelect from "react-multi-select-component";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { userProfile } from "../../actions/authActions";
+import { userProfile,getProfile } from "../../actions/authActions";
+
+
 
 document.addEventListener('DOMContentLoaded', function() {
     var elems = document.querySelectorAll('select');
@@ -35,7 +37,7 @@ class Profile extends Component {
             dob: "",
             mobileNo: "",
             profilePic: "",
-            interests: [""],         
+            interests: [],         
             errors: {}
         }; 
     }
@@ -65,9 +67,36 @@ class Profile extends Component {
         this.props.history.push("/dashboard");
         console.log(newProfile);
     };
+    
+    componentDidMount () {
+        //If logged in and user navigates to register page, should redirect them to 
+        var em= localStorage.getItem('email');
+       fetch("http://localhost:5000/api/users/profile/"+em)
+       .then(res => res.json())
+       .then(data=>{
+           console.log(data.data.userdata.password);
+           this.setState({
+            name: data.data.userdata.name,
+            email: data.data.userdata.email,
+            password: data.data.userdata.password,
+            firstName: data.data.userdata.firstName,
+            lastName: data.data.userdata.lastName,
+            collegeName: data.data.userdata.collegeName,
+            gradYear: data.data.userdata.gradYear,
+            gender: data.data.userdata.gender,
+            dob: data.data.userdata.dob,
+            mobileNo: data.data.userdata.mobileNo,
+            profilePic: data.data.userdata.profilePic,
+            interests: data.data.userdata.interests,         
+            errors: {}
+           })
+       })
+    }
+    
 
     render() {
         const { errors } = this.state;
+       
         
         return(
             <div className="container">

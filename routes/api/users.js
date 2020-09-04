@@ -102,7 +102,7 @@ router.get("/profile/:email",(req,res)=>{
             if(err){
               next(err)
             }else{
-              res.json({status: "successfull" , message:"Here is your info..." , data:{userdata: profileInfo}})
+              res.json({ data:{userdata: profileInfo}})
             }
   })
 })
