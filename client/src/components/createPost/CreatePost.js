@@ -1,17 +1,44 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import M from "materialize-css";
 import { useHistory } from "react-router-dom";
     
 
 const CreatePost = () => {
     const history = useHistory()
-    const [subject, setSubject] = useState("")
+    const [title, setTitle] = useState("")
     const [caption, setCaption] = useState("")
     const [photo, setPhoto] = useState("")
     const [url, setUrl] = useState("")
     
     const user= localStorage.getItem('user_name');
-    console.log(user)
+    // console.log(user)
+
+    useEffect(()=>{
+        if(url){
+         fetch("/api/posts/createpost",{
+             method:"post",
+             headers:{
+                 "Content-Type":"application/json"
+             },
+             body:JSON.stringify({
+                 title,
+                 caption,
+                 photo:url
+             })
+         }).then(res=>res.json())
+         .then(data=>{
+            if(data.error){
+               M.toast({html: data.error,classes:"#c62828 red darken-3"})
+            }
+            else{
+                M.toast({html:"Created post Successfully",classes:"#43a047 green darken-1"})
+                history.push('/dashboard')
+            }
+         }).catch(err=>{
+             console.log(err)
+         })
+     }
+     },[url])
 
     const postDetails = () => {
         const data = new FormData()
@@ -26,33 +53,37 @@ const CreatePost = () => {
         .then(data => {
             setUrl(data.url)
         })
-        .catch(err => {
-            console.log(err)
-        })
+        // console.log(data.url)
+        // .catch(err => {
+        //     return;
+        //     // console.log(err)
+        // })
 
-        fetch("/api/post/createpost", {
-            method: "post",
-            headers:{
-                "Content-Type": "application/json"
-            },
-            body:JSON.stringify({
-                subject,
-                caption,
-                pic:url
-            })
-        }).then(res => res.json())
-        .then(data => {
-            if(data.error){
-                M.toast({html: data.error,classes:"#c62828 red darken-"})
-            }
-            else{
-                M.toast({html: "Created an Event successfully", classes:"#43a047 green darken-1"})
-                history.push("/dashboard")
-            }
-        }).catch(err => {
-            return;
-            // console.log(err)
-        })
+        // fetch("/api/posts/createpost", {
+        //     method: "post",
+        //     headers:{
+        //         "Content-Type": "application/json"
+        //     },
+        //     body:JSON.stringify({
+        //         title,
+        //         caption,
+        //         photo:url
+        //     })
+        // }).then(res => res.json())
+        // .then(data => {
+        //     console.log(data);
+        //     if(data.error){
+        //         M.toast({html: data.error,classes:"#c62828 red darken-"})
+        //     }
+        //     else{
+        //         M.toast({html: "Created an Event successfully", classes:"#43a047 green darken-1"})
+        //         history.push("/dashboard")
+        //     }
+        //     // console.log(data);
+        // }).catch(err => {
+        //     return;
+        //     // console.log(err)
+        // })
     }
 
     return (
@@ -65,9 +96,9 @@ const CreatePost = () => {
         }}>
             <input 
                 type="text"
-                placeholder="subject"
-                value={subject}
-                onChange= { (e) => setSubject(e.target.value)}
+                placeholder="title"
+                value={title}
+                onChange= { (e) => setTitle(e.target.value)}
             />
             <input 
                 type="text"

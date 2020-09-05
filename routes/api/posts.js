@@ -18,21 +18,21 @@ router.get('/allpost',(req,res)=>{
 
 
 router.post('/createpost',(req,res)=>{
-    const {title,caption,photo,name,event_url} = req.body 
+    const {title,caption,photo} = req.body 
     console.log(req.body.title);
     console.log(req.body.caption);
     console.log(req.body.photo);
-    console.log(req.body.name);
-    console.log(req.body.event_url);
-     if(!title || !caption || !photo || !name || !event_url){
-      return  res.status(422).json({error:"Plase add all the fields"})
+    // console.log(req.body.name);
+    // console.log(req.body.event_url);
+     if(!title || !caption || !photo){
+      return  res.status(422).json({error:"Please add all the fields"})
      }
     const post = new Post({
         title:req.body.title,
         caption:req.body.caption,
         photo:req.body.photo,
-        name:req.body.name,
-        event_url:req.body.event_url
+        // name:req.body.name,
+        // event_url:req.body.event_url
         
     })
     post.save().then(result=>{

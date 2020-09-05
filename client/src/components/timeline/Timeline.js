@@ -5,14 +5,14 @@ const Timeline = () => {
     const [data, setData] = useState([])
 
     useEffect(() => {
-        fetch("/api/post/allpost", {
+        fetch("/api/posts/allpost", {
             headers: {
                 "Authorization": "Bearer " + localStorage.getItem("jwt")
             }
         }).then(res => res.json())
         .then(result=>{
-            console.log(result)
-            setData(result.post)
+            // console.log(result.posts)
+            setData(result.posts)
         })
     }, [])
 

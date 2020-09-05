@@ -16,11 +16,11 @@ const postSchema = new mongoose.Schema({
     interested:[{type:ObjectId,ref:"User"}],
     name:{
        type:String,
-       required:true
+       required:false
     },
     event_url:{
         type:String,
-        required:true
+        required:false
     }
 },{timestamps:true})
 
