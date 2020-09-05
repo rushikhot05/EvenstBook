@@ -15,6 +15,7 @@ import Profile from './components/profile/Profile';
 import PrivateRoute from "./components/private-route/PrivateRoute";
 import Dashboard from "./components/dashboard/Dashboard";
 import CreatePost from "./components/createPost/CreatePost"
+import Timeline from "./components/timeline/Timeline"
 
 //Check for token to keep user logged in
 if (localStorage.jwtToken) {
@@ -48,6 +49,7 @@ class App extends Component {
           <Route exact path="/register" component={Register} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/createPost" component={CreatePost} />
+          <Route exact path="/timeline" component={Timeline} />
           <Switch>
             <PrivateRoute exact path="/dashboard" component= {Dashboard} />
             <Switch>

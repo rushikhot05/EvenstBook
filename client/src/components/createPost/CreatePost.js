@@ -30,7 +30,7 @@ const CreatePost = () => {
             console.log(err)
         })
 
-        fetch("/createpost", {
+        fetch("/api/post/createpost", {
             method: "post",
             headers:{
                 "Content-Type": "application/json"
