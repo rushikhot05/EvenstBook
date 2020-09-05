@@ -93,7 +93,7 @@ class Profile extends Component {
         fetch("http://localhost:5000/api/users/profile/"+em)
         .then(res => res.json())
         .then(data=>{
-        //    console.log(data.data.userData.password);
+            localStorage.setItem('user_name',data.data.userdata.name)
            this.setState({
             name: data.data.userdata.name,
             email: data.data.userdata.email,
@@ -117,8 +117,8 @@ class Profile extends Component {
 
     render() {
         const { errors } = this.state;
-       
-        
+        var user= localStorage.getItem('user_name');
+        console.log(user)
         return(
             <div className="container">
                 <div className="row">

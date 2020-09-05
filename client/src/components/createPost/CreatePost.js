@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import M from "materialize-css";
 import { useHistory } from "react-router-dom";
+    
 
 const CreatePost = () => {
     const [subject, setSubject] = useState("")
@@ -8,8 +9,8 @@ const CreatePost = () => {
     const [photo, setPhoto] = useState("")
     const [url, setUrl] = useState("")
     
-    const username = localStorage.getItem("username", data.data.userdata.name)
-    console.log(username)
+    const user= localStorage.getItem('user_name');
+    console.log(user)
     const postDetails = () => {
         const data = new FormData()
         data.append("file", photo)
