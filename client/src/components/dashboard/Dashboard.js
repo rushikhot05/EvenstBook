@@ -15,6 +15,10 @@ class Dashboard extends Component {
         this.props.history.push("/profile");
     };
 
+    onPostClick = e => {
+        e.preventDefault();
+        this.props.history.push("/createPost");
+    };
     render() {
         const { user } = this.props.auth;
         return(
@@ -39,6 +43,17 @@ class Dashboard extends Component {
                             onClick={this.onProfileClick}
                             className="btn btn-large waves-effect waves-light hoverable blue-accent-3">
                                 Profile
+                        </button>
+                        <button 
+                            style={{
+                                width: "250px",
+                                borderRadius: "3px",
+                                letterSpacing: "1.5px",
+                                marginTop: "1rem"
+                            }}
+                            onClick={this.onPostClick}
+                            className="btn btn-large waves-effect waves-light hoverable blue-accent-3">
+                                Post an Event
                         </button>
                         <button 
                             style={{

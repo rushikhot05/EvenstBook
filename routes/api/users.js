@@ -10,6 +10,7 @@ const validateLoginInput = require("../../validation/login");
 const validateProfileInput= require("../../validation/profile");
 
 const User = require("../../models/user");
+const Post = require("../../models/post");
 
 router.post("/register", (req, res) => {
   
@@ -128,5 +129,24 @@ router.put("/profile/:email",(req,res)=>{
     })
   }
  })
+
+ router.post('/createpost',(req,res)=>{
+  const {subject,caption,pic} = req.body 
+  if(!subject || !caption || !pic){
+    return  res.status(422).json({error:"Please add all the fields"})
+  }
+  // req.user.password = undefined
+  const post = new Post({
+      subject,
+      caption,
+      photo:pic,
+  })
+  post.save().then(result=>{
+      res.json({post:result})
+  })
+  .catch(err=>{
+      console.log(err)
+  })
+})
 
 module.exports = router;

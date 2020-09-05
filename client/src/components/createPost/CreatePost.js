@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
     
 
 const CreatePost = () => {
+    const history = useHistory()
     const [subject, setSubject] = useState("")
     const [caption, setCaption] = useState("")
     const [photo, setPhoto] = useState("")
@@ -11,12 +12,13 @@ const CreatePost = () => {
     
     const user= localStorage.getItem('user_name');
     console.log(user)
+
     const postDetails = () => {
         const data = new FormData()
         data.append("file", photo)
         data.append("upload_preset", "eventsbook")
         data.append("cloud_name", "eventsbook")
-        fetch("https://api.cloudinary.com/v1_1/eventsbook/photo/upload",{ 
+        fetch("https://api.cloudinary.com/v1_1/eventsbook/image/upload",{ 
         method: "post",
         body: data
         })
@@ -28,7 +30,29 @@ const CreatePost = () => {
             console.log(err)
         })
 
-        
+        fetch("/createpost", {
+            method: "post",
+            headers:{
+                "Content-Type": "application/json"
+            },
+            body:JSON.stringify({
+                subject,
+                caption,
+                pic:url
+            })
+        }).then(res => res.json())
+        .then(data => {
+            if(data.error){
+                M.toast({html: data.error,classes:"#c62828 red darken-"})
+            }
+            else{
+                M.toast({html: "Created an Event successfully", classes:"#43a047 green darken-1"})
+                history.push("/dashboard")
+            }
+        }).catch(err => {
+            return;
+            // console.log(err)
+        })
     }
 
     return (
