@@ -84,15 +84,38 @@ class Profile extends Component {
         };
         this.props.userProfile(newProfile, this.props.history);
         this.props.history.push("/dashboard");
-        console.log(newProfile);
+        console.log(this.state.name);
+        var ema= localStorage.getItem('email');
+        fetch("/api/users/profile/"+ ema,{
+            method: 'put',
+            headers:{"Content-type":"application/json"},
+            body:JSON.stringify({
+                name: newProfile.name,
+                email: newProfile.email,
+                password: newProfile.password,
+                firstName: newProfile.firstName,
+                lastName: newProfile.lastName,
+                collegeName: newProfile.collegeName,
+                gradYear: newProfile.gradYear,
+                gender: newProfile.gender,
+                dob: newProfile.dob,
+                mobileNo: newProfile.mobileNo,
+                profilePic: newProfile.profilePic,
+                interest1: newProfile.interest1,
+                interest2: newProfile.interest2,
+                interest3: newProfile.interest3
+     
+            })
+        })
     };
     
     componentDidMount () {
         //If logged in and user navigates to register page, should redirect them to 
         var em= localStorage.getItem('email');
-        fetch("http://localhost:5000/api/users/profile/"+em)
+        fetch("/api/users/profile/"+em)
         .then(res => res.json())
         .then(data=>{
+            console.log(data);
             localStorage.setItem('user_name',data.data.userdata.name)
            this.setState({
             name: data.data.userdata.name,
