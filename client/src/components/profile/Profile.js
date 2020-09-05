@@ -1,26 +1,26 @@
 import React, { Component, useState } from "react";
 // import { Link, withRouter } from "react-router-dom";
-import 'materialize-css/dist/css/materialize.min.css';
-import M from 'materialize-css/dist/js/materialize.min.js';
-import MultiSelect from "react-multi-select-component";
+// import 'materialize-css/dist/css/materialize.min.css';
+// import M from 'materialize-css/dist/js/materialize.min.js';
+// import MultiSelect from "react-multi-select-component";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { userProfile,getProfile } from "../../actions/authActions";
 
 
 
-document.addEventListener('DOMContentLoaded', function() {
-    var elems = document.querySelectorAll('select');
-    var options={}
-    var instances = M.FormSelect.init(elems, options);
-    // var instances = M.FormSelect.getInstance(elem)
-  });
+// document.addEventListener('DOMContentLoaded', function() {
+//     var elems = document.querySelectorAll('select');
+//     var options={}
+//     var instances = M.FormSelect.init(elems, options);
+//     // var instances = M.FormSelect.getInstance(elem)
+//   });
 
-document.addEventListener('DOMContentLoaded', function() {
-    var elems = document.querySelectorAll('.chips');
-    var options = {}
-    var instances = M.Chips.init(elems, options);
-  });
+// document.addEventListener('DOMContentLoaded', function() {
+//     var elems = document.querySelectorAll('.chips');
+//     var options = {}
+//     var instances = M.Chips.init(elems, options);
+//   });
 
 class Profile extends Component {
     constructor() {
@@ -37,7 +37,10 @@ class Profile extends Component {
             dob: "",
             mobileNo: "",
             profilePic: "",
-            interests: [],         
+            interest1: "",
+            interest2: "",
+            interest3: "",         
+            // value: '',
             errors: {}
         }; 
     }
@@ -45,6 +48,20 @@ class Profile extends Component {
     onChange = e => {
         this.setState({ [e.target.id]: e.target.value});
     };
+
+    // onEnter = e => {
+    //     if(e.charCode !== 13) return;
+    //     this.interestsChange();
+    // };
+
+    // interestsChange = e => {
+    //     const { value } = this.state;
+    //     if(!!value.trim()) return; 
+    //     this.setState((prevState) => ({
+    //         interests: [...prevState.interests, value],
+    //         value: ''
+    //     }));
+    // };
 
     onSubmit = e => {
         e.preventDefault();
@@ -61,7 +78,9 @@ class Profile extends Component {
             dob: this.state.dob,
             mobileNo: this.state.mobileNo,
             profilePic: this.state.profilePic,
-            interests: this.state.interests
+            interest1: this.state.interest1,
+            interest2: this.state.interest2,
+            interest3: this.state.interest3
         };
         this.props.userProfile(newProfile, this.props.history);
         this.props.history.push("/dashboard");
@@ -71,10 +90,10 @@ class Profile extends Component {
     componentDidMount () {
         //If logged in and user navigates to register page, should redirect them to 
         var em= localStorage.getItem('email');
-       fetch("http://localhost:5000/api/users/profile/"+em)
-       .then(res => res.json())
-       .then(data=>{
-           console.log(data.data.userdata.password);
+        fetch("http://localhost:5000/api/users/profile/"+em)
+        .then(res => res.json())
+        .then(data=>{
+        //    console.log(data.data.userData.password);
            this.setState({
             name: data.data.userdata.name,
             email: data.data.userdata.email,
@@ -87,7 +106,9 @@ class Profile extends Component {
             dob: data.data.userdata.dob,
             mobileNo: data.data.userdata.mobileNo,
             profilePic: data.data.userdata.profilePic,
-            interests: data.data.userdata.interests,         
+            interest1: data.data.userdata.interest1,
+            interest2: data.data.userdata.interest2,
+            interest3: data.data.userdata.interest3,         
             errors: {}
            })
        })
@@ -133,13 +154,13 @@ class Profile extends Component {
                             <label htmlFor="collegeName">College Name</label>
                         </div>
                         <div className="input-field col s12 m6">
-                            <select onChange={this.onChange} value={this.state.gradYear} id="gradYear" type="text" error={this.state.gradYear}>
-                                <option value="" disabled selected defaultValue>Choose your graduation year</option>
-                                <option>2021</option>
-                                <option>2022</option>
-                                <option>2023</option>
-                                <option>2024</option>
-                            </select>
+                        <input
+                                onChange={this.onChange}
+                                value={this.state.gradYear}
+                                error={this.state.gradYear} 
+                                id="gradYear"
+                                type="text"
+                            />
                             <label htmlFor="gradYear">Graduation Year</label>
                         </div>
                         <div className="input-field col s12 m6">
@@ -149,17 +170,17 @@ class Profile extends Component {
                                 error={this.state.dob}
                                 id="dob"
                                 type="text"
-                                placeholder="dd-mm-yyyy"
                             />
-                            <label htmlFor="dob">Date of birth</label>
+                            <label htmlFor="dob">Date of birth (dd-mm-yyyy)</label>
                         </div>
                         <div className="input-field col s12 m6">
-                            <select onChange={this.onChange} value={this.state.gender} error={this.state.gender} id="gender" type="text">
-                                <option value="" disabled selected defaultValue>Choose Gender</option>
-                                <option>Male</option>
-                                <option>Female</option>
-                                <option>Can't Say</option>
-                            </select>
+                            <input
+                                onChange={this.onChange}
+                                value={this.state.gender}
+                                error={this.state.gender} 
+                                id="gender"
+                                type="text"
+                            />
                             <label htmlFor="gender">Gender</label>
                         </div>
                         <div className="input-field col s12 m6">
@@ -172,23 +193,52 @@ class Profile extends Component {
                             />
                             <label htmlFor="mobileNo">Mobile No.</label>
                         </div>
-                        <div className="input-field col s12">
-                            <div className="chips chips-placeholder">
+                        <div className="input-field col s4">
+                            <input 
+                                onChange={this.onChange}
+                                value={this.state.interest1}
+                                error={this.state.interest1}
+                                id="interest1"
+                                type="text"
+                                // onKeyPress={this.onEnter}
+                            />
+                            {/* <div className="chips">
                                 <input 
-                                    onChange={this.onChange}
-                                    value={this.state.interests}
+                                    onChange={this.interestsChange}
+                                    value={this.value}
                                     error={this.state.interests}
                                     id="interests"
                                     type="text"
+                                    onKeyPress={this.onEnter}
                                 />
-                            </div>
+                            </div> */}
                             {/* <select onChange={this.onChange} value={this.state.interests} error={this.state.interests} id="interests" type="array" multiple>
                                 <option value="" disabled selected>Choose your interests</option>
                                 <option>Machine Learning</option>
                                 <option>Blockchain</option>
                                 <option>Full-Stack</option>
                             </select> */}
-                            <label htmlFor="interests">Interests</label>
+                            <label htmlFor="interest1">Interest 1:</label>
+                        </div>
+                        <div className="input-field col s4">
+                            <input 
+                                onChange={this.onChange}
+                                value={this.state.interest2}
+                                error={this.state.interest2}
+                                id="interest2"
+                                type="text"
+                            />
+                            <label htmlFor="interest2">Interest 2:</label>
+                        </div>
+                        <div className="input-field col s4">
+                            <input 
+                                onChange={this.onChange}
+                                value={this.state.interest3}
+                                error={this.state.interest3}
+                                id="interest3"
+                                type="text"
+                            />
+                            <label htmlFor="interest3">Interest 3:</label>
                         </div>
                         <div className="col s12" style={{ paddingLeft: "11.250px" }}>
                             <button

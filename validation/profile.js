@@ -14,7 +14,9 @@ module.exports= function  validateProfileInput(data){
     data.gradYear = !isEmpty(data.gradYear) ? data.gradYear : "";
     data.gender = !isEmpty(data.gender) ? data.gender : "";
     data.mobileNo = !isEmpty(data.mobileNo) ? data.mobileNo : "";
-    data.interests = !isEmpty(data.interests) ? data.interests : "";
+    data.interest1 = !isEmpty(data.interest1) ? data.interest1 : "";
+    data.interest2 = !isEmpty(data.interest2) ? data.interest2 : "";
+    data.interest3 = !isEmpty(data.interest3) ? data.interest3 : "";
 
     if (validator.isEmpty(data.name)) {
         errors.name = "Name field is required";

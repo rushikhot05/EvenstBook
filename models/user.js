@@ -52,8 +52,18 @@ mobileNo:{
     trim:true,
     
 },
-interests:{
-  type: [String],
+interest1:{
+  type: String,
+  trim:true
+},
+
+interest2:{
+  type: String,
+  trim:true
+},
+
+interest3:{
+  type: String,
   trim:true
 }
 });
