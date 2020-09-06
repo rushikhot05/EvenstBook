@@ -10,11 +10,9 @@ const validateLoginInput = require("../../validation/login");
 const validateProfileInput= require("../../validation/profile");
 
 const User = require("../../models/user");
-const Post = require("../../models/post");
 
 router.post("/register", (req, res) => {
   
-  console.log("Register")
   const { errors, isValid } = validateRegisterInput(req.body);
   if (!isValid) {
     return res.status(400).json(errors);
@@ -98,12 +96,11 @@ router.post("/login", (req, res) => {
 });
 
 router.get("/profile/:email",(req,res)=>{
-  console.log("profile");
   User.findOne({"email":req.params.email},function(err, profileInfo){
             if(err){
               next(err)
             }else{
-              res.json({ data:{userdata: profileInfo}})
+              res.json({status: "successfull" , message:"Here is your info..." , data:{userdata: profileInfo}})
             }
   })
 })
@@ -115,10 +112,8 @@ router.put("/profile/:email",(req,res)=>{
    const {error, isValid}= validateProfileInput(req.body)     
    
    if (!isValid) {
-     console.log("abb")
     return res.status(400).json(errors);
   }else{
-    console.log("updateprofile");
     User.findOneAndUpdate({"email":req.params.email},{name:req.body.name, email:req.body.email, password:req.body.password, firstName: req.body.firstName, lastName: req.body.lastName, dob: req.body.dob, collageName: req.body.collageName, gradYear: req.body.gradYear, gender: req.body.gender, mobileNo: req.body.mobileNo, interest1:req.body.interest1, interest2:req.body.interest2, interest3:req.body.interest3},function(err,result){
     if(err){
       next(err)
@@ -129,24 +124,5 @@ router.put("/profile/:email",(req,res)=>{
     })
   }
  })
-
- router.post('/createpost',(req,res)=>{
-  const {subject,caption,pic} = req.body 
-  if(!subject || !caption || !pic){
-    return  res.status(422).json({error:"Please add all the fields"})
-  }
-  // req.user.password = undefined
-  const post = new Post({
-      subject,
-      caption,
-      photo:pic,
-  })
-  post.save().then(result=>{
-      res.json({post:result})
-  })
-  .catch(err=>{
-      console.log(err)
-  })
-})
 
 module.exports = router;

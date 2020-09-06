@@ -19,6 +19,12 @@ class Dashboard extends Component {
         e.preventDefault();
         this.props.history.push("/createPost");
     };
+
+    onHomeClick = e => {
+        e.preventDefault();
+        this.props.history.push("/timeline");
+    };
+
     render() {
         const { user } = this.props.auth;
         return(
@@ -33,6 +39,19 @@ class Dashboard extends Component {
                                 app👏
                             </p>
                         </h4>
+                        <div>
+                            <button 
+                                style={{
+                                    width: "150px",
+                                    borderRadius: "3px",
+                                    letterSpacing: "1.5px",
+                                    marginTop: "1rem"
+                                }}
+                                onClick={this.onHomeClick}
+                                className="btn btn-large waves-effect waves-light hoverable blue-accent-3">
+                                    Home
+                            </button>
+                        </div>
                         <button 
                             style={{
                                 width: "150px",

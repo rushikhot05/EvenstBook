@@ -18,19 +18,15 @@ router.get('/allpost',(req,res)=>{
 
 
 router.post('/createpost',(req,res)=>{
-    const {title,caption,photo} = req.body 
-    console.log(req.body.title);
-    console.log(req.body.caption);
-    console.log(req.body.photo);
-    // console.log(req.body.name);
-    // console.log(req.body.event_url);
-     if(!title || !caption || !photo){
+    const {title,caption,photo, event_url} = req.body 
+     if(!title || !caption || !photo || !event_url){
       return  res.status(422).json({error:"Please add all the fields"})
      }
     const post = new Post({
         title:req.body.title,
         caption:req.body.caption,
         photo:req.body.photo,
+        event_url: req.body.event_url
         // name:req.body.name,
         // event_url:req.body.event_url
         
@@ -42,66 +38,6 @@ router.post('/createpost',(req,res)=>{
         console.log(err)
     })
 })
-
-// router.get('/mypost',requireLogin,(req,res)=>{
-//     Post.find({postedBy:req.user._id})
-//     .populate("PostedBy","_id name")
-//     .then(mypost=>{
-//         res.json({mypost})
-//     })
-//     .catch(err=>{
-//         console.log(err)
-//     })
-// })
-
-// router.put('/like',(req,res)=>{
-//     Post.findByIdAndUpdate(req.body.postId,{
-//         $push:{interested:req.user._id}
-//     },{
-//         new:true
-//     }).exec((err,result)=>{
-//         if(err){
-//             return res.status(422).json({error:err})
-//         }else{
-//             res.json(result)
-//         }
-//     })
-// })
-// router.put('/unlike',requireLogin,(req,res)=>{
-//     Post.findByIdAndUpdate(req.body.postId,{
-//         $pull:{likes:req.user._id}
-//     },{
-//         new:true
-//     }).exec((err,result)=>{
-//         if(err){
-//             return res.status(422).json({error:err})
-//         }else{
-//             res.json(result)
-//         }
-//     })
-// })
-
-
-// router.put('/comment',requireLogin,(req,res)=>{
-//     const comment = {
-//         text:req.body.text,
-//         postedBy:req.user._id
-//     }
-//     Post.findByIdAndUpdate(req.body.postId,{
-//         $push:{comments:comment}
-//     },{
-//         new:true
-//     })
-//     .populate("comments.postedBy","_id name")
-//     .populate("postedBy","_id name")
-//     .exec((err,result)=>{
-//         if(err){
-//             return res.status(422).json({error:err})
-//         }else{
-//             res.json(result)
-//         }
-//     })
-// })
 
 router.delete('/deletepost/:postId',(req,res)=>{
     Post.findOne({_id:req.params.postId})

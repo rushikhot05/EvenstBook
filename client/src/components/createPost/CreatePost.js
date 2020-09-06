@@ -9,9 +9,8 @@ const CreatePost = () => {
     const [caption, setCaption] = useState("")
     const [photo, setPhoto] = useState("")
     const [url, setUrl] = useState("")
-    
+    const [event_url, setEventUrl] = useState("")
     const user= localStorage.getItem('user_name');
-    // console.log(user)
 
     useEffect(()=>{
         if(url){
@@ -23,6 +22,7 @@ const CreatePost = () => {
              body:JSON.stringify({
                  title,
                  caption,
+                 event_url,
                  photo:url
              })
          }).then(res=>res.json())
@@ -35,7 +35,6 @@ const CreatePost = () => {
                 history.push('/dashboard')
             }
          }).catch(err=>{
-             console.log(err)
          })
      }
      },[url])
@@ -53,37 +52,6 @@ const CreatePost = () => {
         .then(data => {
             setUrl(data.url)
         })
-        // console.log(data.url)
-        // .catch(err => {
-        //     return;
-        //     // console.log(err)
-        // })
-
-        // fetch("/api/posts/createpost", {
-        //     method: "post",
-        //     headers:{
-        //         "Content-Type": "application/json"
-        //     },
-        //     body:JSON.stringify({
-        //         title,
-        //         caption,
-        //         photo:url
-        //     })
-        // }).then(res => res.json())
-        // .then(data => {
-        //     console.log(data);
-        //     if(data.error){
-        //         M.toast({html: data.error,classes:"#c62828 red darken-"})
-        //     }
-        //     else{
-        //         M.toast({html: "Created an Event successfully", classes:"#43a047 green darken-1"})
-        //         history.push("/dashboard")
-        //     }
-        //     // console.log(data);
-        // }).catch(err => {
-        //     return;
-        //     // console.log(err)
-        // })
     }
 
     return (
@@ -106,7 +74,12 @@ const CreatePost = () => {
                 value={caption}
                 onChange= { (e) => setCaption(e.target.value)}
             />
-
+            <input 
+                type="text"
+                placeholder="URL to event page"
+                value={event_url}
+                onChange= { (e) => setEventUrl(e.target.value)}
+            />
             <div className= "file-field input-field">
                 <div className="btn btn-large waves-effect waves-light hoverable blue accent-3">
                     <span>Upload Photo</span>

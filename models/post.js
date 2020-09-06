@@ -20,7 +20,7 @@ const postSchema = new mongoose.Schema({
     },
     event_url:{
         type:String,
-        required:false
+        required:true
     }
 },{timestamps:true})
 

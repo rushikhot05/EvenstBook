@@ -28,7 +28,7 @@ lastName:{
     
 },
 dob:{
-    type:Date,
+    type:String,
     trim:true,
     
 },

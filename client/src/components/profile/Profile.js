@@ -31,7 +31,7 @@ class Profile extends Component {
             password: "",
             firstName: "",
             lastName: "",
-            collegeName: "",
+            collageName: "",
             gradYear: "",
             gender: "",
             dob: "",
@@ -72,7 +72,7 @@ class Profile extends Component {
             password: this.state.password,
             firstName: this.state.firstName,
             lastName: this.state.lastName,
-            collegeName: this.state.collegeName,
+            collageName: this.state.collageName,
             gradYear: this.state.gradYear,
             gender: this.state.gender,
             dob: this.state.dob,
@@ -84,7 +84,6 @@ class Profile extends Component {
         };
         this.props.userProfile(newProfile, this.props.history);
         this.props.history.push("/dashboard");
-        console.log(this.state.name);
         var ema= localStorage.getItem('email');
         fetch("/api/users/profile/"+ ema,{
             method: 'put',
@@ -95,7 +94,7 @@ class Profile extends Component {
                 password: newProfile.password,
                 firstName: newProfile.firstName,
                 lastName: newProfile.lastName,
-                collegeName: newProfile.collegeName,
+                collageName: newProfile.collageName,
                 gradYear: newProfile.gradYear,
                 gender: newProfile.gender,
                 dob: newProfile.dob,
@@ -115,7 +114,6 @@ class Profile extends Component {
         fetch("/api/users/profile/"+em)
         .then(res => res.json())
         .then(data=>{
-            console.log(data);
             localStorage.setItem('user_name',data.data.userdata.name)
            this.setState({
             name: data.data.userdata.name,
@@ -123,7 +121,7 @@ class Profile extends Component {
             password: data.data.userdata.password,
             firstName: data.data.userdata.firstName,
             lastName: data.data.userdata.lastName,
-            collegeName: data.data.userdata.collegeName,
+            collageName: data.data.userdata.collageName,
             gradYear: data.data.userdata.gradYear,
             gender: data.data.userdata.gender,
             dob: data.data.userdata.dob,
@@ -141,22 +139,22 @@ class Profile extends Component {
     render() {
         const { errors } = this.state;
         var user= localStorage.getItem('user_name');
-        console.log(user)
         return(
             <div className="container">
                 <div className="row">
                     <form noValidate onSubmit={this.onSubmit}>
-                        <div className="input-field col s12 m6">
+                        <div className="col s12 m6">
+                            <label htmlFor="firstName" style={{fontSize:"20px"}}>First Name</label>
                             <input
                                 onChange={this.onChange}
                                 value={this.state.firstName}
                                 error={this.state.firstName} 
                                 id="firstName" 
                                 type="text"
-                            />
-                            <label htmlFor="firstName">First Name</label>
+                            />  
                         </div>
-                        <div className="input-field col s12 m6">
+                        <div className="col s12 m6">
+                            <label htmlFor="lastName" style={{fontSize:"20px"}}>Last Name</label>
                             <input
                                 onChange={this.onChange}
                                 value={this.state.lastName}
@@ -164,29 +162,29 @@ class Profile extends Component {
                                 id="lastName"
                                 type="text"
                             />
-                            <label htmlFor="lastName">Last Name</label>
                         </div>
-                        <div className="input-field col s12">
+                        <div className="col s12">
+                            <label htmlFor="collageName" style={{fontSize:"20px"}}>College Name</label>
                             <input
                                 onChange={this.onChange}
-                                value={this.state.collegeName}
-                                error={this.state.collegeName} 
-                                id="collegeName"
+                                value={this.state.collageName}
+                                error={this.state.collageName} 
+                                id="collageName"
                                 type="text"
                             />
-                            <label htmlFor="collegeName">College Name</label>
                         </div>
-                        <div className="input-field col s12 m6">
-                        <input
+                        <div className="col s12 m6">
+                        <label htmlFor="gradYear" style={{fontSize:"20px"}}>Graduation Year</label>
+                            <input
                                 onChange={this.onChange}
                                 value={this.state.gradYear}
                                 error={this.state.gradYear} 
                                 id="gradYear"
                                 type="text"
                             />
-                            <label htmlFor="gradYear">Graduation Year</label>
                         </div>
-                        <div className="input-field col s12 m6">
+                        <div className="col s12 m6">
+                            <label htmlFor="dob" style={{fontSize:"20px"}}>Date of birth (dd-mm-yyyy)</label>
                             <input
                                 onChange={this.onChange}
                                 value={this.state.dob}
@@ -194,9 +192,9 @@ class Profile extends Component {
                                 id="dob"
                                 type="text"
                             />
-                            <label htmlFor="dob">Date of birth (dd-mm-yyyy)</label>
                         </div>
-                        <div className="input-field col s12 m6">
+                        <div className="col s12 m6">
+                            <label htmlFor="gender" style={{fontSize:"20px"}}>Gender</label>
                             <input
                                 onChange={this.onChange}
                                 value={this.state.gender}
@@ -204,9 +202,9 @@ class Profile extends Component {
                                 id="gender"
                                 type="text"
                             />
-                            <label htmlFor="gender">Gender</label>
                         </div>
-                        <div className="input-field col s12 m6">
+                        <div className="col s12 m6">
+                            <label htmlFor="mobileNo" style={{fontSize:"20px"}}>Mobile No.</label>
                             <input
                                 onChange={this.onChange}
                                 value={this.state.mobileNo}
@@ -214,36 +212,19 @@ class Profile extends Component {
                                 id="mobileNo"
                                 type="text"
                             />
-                            <label htmlFor="mobileNo">Mobile No.</label>
                         </div>
-                        <div className="input-field col s4">
+                        <div className="col s4">
+                            <label htmlFor="interest1" style={{fontSize:"20px"}}>Interest 1:</label>
                             <input 
                                 onChange={this.onChange}
                                 value={this.state.interest1}
                                 error={this.state.interest1}
                                 id="interest1"
                                 type="text"
-                                // onKeyPress={this.onEnter}
                             />
-                            {/* <div className="chips">
-                                <input 
-                                    onChange={this.interestsChange}
-                                    value={this.value}
-                                    error={this.state.interests}
-                                    id="interests"
-                                    type="text"
-                                    onKeyPress={this.onEnter}
-                                />
-                            </div> */}
-                            {/* <select onChange={this.onChange} value={this.state.interests} error={this.state.interests} id="interests" type="array" multiple>
-                                <option value="" disabled selected>Choose your interests</option>
-                                <option>Machine Learning</option>
-                                <option>Blockchain</option>
-                                <option>Full-Stack</option>
-                            </select> */}
-                            <label htmlFor="interest1">Interest 1:</label>
                         </div>
-                        <div className="input-field col s4">
+                        <div className="col s4">
+                            <label htmlFor="interest2" style={{fontSize:"20px"}}>Interest 2:</label>
                             <input 
                                 onChange={this.onChange}
                                 value={this.state.interest2}
@@ -251,9 +232,9 @@ class Profile extends Component {
                                 id="interest2"
                                 type="text"
                             />
-                            <label htmlFor="interest2">Interest 2:</label>
                         </div>
-                        <div className="input-field col s4">
+                        <div className="col s4">
+                            <label htmlFor="interest3" style={{fontSize:"20px"}}>Interest 3:</label>
                             <input 
                                 onChange={this.onChange}
                                 value={this.state.interest3}
@@ -261,7 +242,6 @@ class Profile extends Component {
                                 id="interest3"
                                 type="text"
                             />
-                            <label htmlFor="interest3">Interest 3:</label>
                         </div>
                         <div className="col s12" style={{ paddingLeft: "11.250px" }}>
                             <button
