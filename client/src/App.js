@@ -3,13 +3,15 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import setAuthToken from "./utils/setAuthToken";
 import { setCurrentUser, logoutUser } from "./actions/authActions";
-
+import background from "./background.jpg"
 import { Provider } from "react-redux";
 import store from "./store.js";
 
 import Navbar from './components/layout/Navbar';
 import Landing from './components/layout/Landing';
 import Login from './components/auth/Login';
+import LoginOrganizer from './components/auth/LoginOrganizer'
+import RegisterOrganizer from './components/auth/RegisterOrganizer'
 import Register from './components/auth/Register';
 import Profile from './components/profile/Profile';
 import PrivateRoute from "./components/private-route/PrivateRoute";
@@ -43,11 +45,14 @@ class App extends Component {
     return (
       <Provider store={store}>
         <Router>
-        <div className="App">
+        <div className="App" style={{backgroundColor:"#eea29a",
+                                    backgroundSize: "100% 100%", height:"100%"}}>
           <Navbar />
           <Route exact path="/" component={Landing} />
           <Route exact path="/register" component={Register} />
           <Route exact path="/login" component={Login} />
+          <Route exact path="/registerOrganizer" component={RegisterOrganizer} />
+          <Route exact path="/loginOrganizer" component={LoginOrganizer} />
           <Switch>
             <PrivateRoute exact path="/dashboard" component= {Dashboard} />
             <Switch>

@@ -22,10 +22,47 @@ export const registerUser = (userData, history) => dispatch => {
         ); 
 };
 
+export const registerOrganizer = (userData, history) => dispatch => {
+    axios
+        .post("./api/organizer/register", userData)
+        .then(res => history.push("/loginOrganizer")) //redirect to login on successful register
+        .catch(err => 
+            dispatch({
+                type: GET_ERRORS,
+                payload: err.response.data
+            })
+        ); 
+};
 
 export const loginUser = userData => dispatch => {
     axios
         .post("./api/users/login", userData)
+        .then(res => {
+            //Save to local storage
+            //Set token to local storage
+            const { token } = res.data;
+            localStorage.setItem("jwtToken", token);
+            //Set token to auth header
+            setAuthToken(token);
+            //Decode token to get user data
+            const decoded = jwt_decode(token);
+            //Set current user
+            dispatch(setCurrentUser(decoded));
+            
+        })
+        .catch(err => 
+            dispatch({
+                type: GET_ERRORS,
+                payload: err.response.data
+            })
+        );
+};
+
+//Login  as organizer
+
+export const loginOrganizer = userData => dispatch => {
+    axios
+        .post("./api/organizer/login", userData)
         .then(res => {
             //Save to local storage
             //Set token to local storage

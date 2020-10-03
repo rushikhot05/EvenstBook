@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 class Landing extends Component {
     render() {
         return (
-            <div style={{height: "75vh"}} className="container valign-wrapper">
+            <div style={{height: "100vh"}} className="container">
                 <div className="row">
                     <div className="col s12 center-align">
                         <h4>
@@ -16,24 +16,47 @@ class Landing extends Component {
                         <br />
                         <div className="col s6">
                             <Link
-                                to="/register"
+                                to="/registerOrganizer"
                                 style={{
-                                    width: "140px",
+                                    width: "340px",
                                     borderRadius: "3px",
                                     letterSpacing: "1.5px"
                                 }} className="btn btn-large waves-effect waves-light hoverable blue accent-3">
-                                Register
+                                Register as Organizer
+                            </Link>
+                        </div>
+                        <div className="col s6">
+                            <Link
+                                to="/loginOrganizer"
+                                style={{
+                                    width: "240px",
+                                    borderRadius: "3px",
+                                    letterSpacing: "1.5px"
+                                }} className="btn btn-large btn-flat waves-effect white black-text">
+                                Login as Organizer
+                            </Link>
+                        </div>
+                        <br />
+                        <div className="col s6">
+                            <Link
+                                to="/register"
+                                style={{
+                                    width: "340px",
+                                    borderRadius: "3px",
+                                    letterSpacing: "1.5px"
+                                }} className="btn btn-large waves-effect waves-light hoverable blue accent-3">
+                                Register as Student
                             </Link>
                         </div>
                         <div className="col s6">
                             <Link
                                 to="/login"
                                 style={{
-                                    width: "140px",
+                                    width: "240px",
                                     borderRadius: "3px",
                                     letterSpacing: "1.5px"
                                 }} className="btn btn-large btn-flat waves-effect white black-text">
-                                Log In
+                                Login as Student
                             </Link>
                         </div>
                     </div>

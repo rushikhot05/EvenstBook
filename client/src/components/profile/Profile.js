@@ -1,26 +1,7 @@
 import React, { Component, useState } from "react";
-// import { Link, withRouter } from "react-router-dom";
-// import 'materialize-css/dist/css/materialize.min.css';
-// import M from 'materialize-css/dist/js/materialize.min.js';
-// import MultiSelect from "react-multi-select-component";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { userProfile,getProfile } from "../../actions/authActions";
-
-
-
-// document.addEventListener('DOMContentLoaded', function() {
-//     var elems = document.querySelectorAll('select');
-//     var options={}
-//     var instances = M.FormSelect.init(elems, options);
-//     // var instances = M.FormSelect.getInstance(elem)
-//   });
-
-// document.addEventListener('DOMContentLoaded', function() {
-//     var elems = document.querySelectorAll('.chips');
-//     var options = {}
-//     var instances = M.Chips.init(elems, options);
-//   });
 
 class Profile extends Component {
     constructor() {
@@ -48,20 +29,6 @@ class Profile extends Component {
     onChange = e => {
         this.setState({ [e.target.id]: e.target.value});
     };
-
-    // onEnter = e => {
-    //     if(e.charCode !== 13) return;
-    //     this.interestsChange();
-    // };
-
-    // interestsChange = e => {
-    //     const { value } = this.state;
-    //     if(!!value.trim()) return; 
-    //     this.setState((prevState) => ({
-    //         interests: [...prevState.interests, value],
-    //         value: ''
-    //     }));
-    // };
 
     onSubmit = e => {
         e.preventDefault();

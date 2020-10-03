@@ -18,16 +18,16 @@ const Timeline = () => {
     }, [])
 
     return (
-        <div className="home" style={{}}>
+        <div className="home" style={{margin:"auto", width:"50%"}}>
             {
                 data.map(item => {
                     return (
-                        <div className="card home-card" key={item._id} style={{paddingLeft: "250px"}}>
+                        <div className="card home-card" key={item._id} style={{paddingLeft: "50px"}}>
                             <div className="row">
-                                <b>
+                                <b style={{maxWidth: "750px"}}>
                                     {item.title}
                                 </b>
-                                <p>
+                                <p style={{maxWidth: "750px"}}>
                                     {item.caption}
                                 </p>
                                 <div className="card-image">
