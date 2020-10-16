@@ -8,6 +8,7 @@ const organizer= require("../../models/organizer")
 
 const validateRegisterInput= require("../../validation/register")
 const validateLoginInput= require("../../validation/login")
+const validateOrgProfileInput =require("../../validation/organizer_profile")
 router.post('/register',(req,res)=> {
 
 const {errors, isValid}= validateRegisterInput(req.body);
@@ -39,16 +40,48 @@ organizer.findOne({email: req.body.email}).then(user=> {
 })
 })
 
-
-router.get("/username/:email",(req,res)=>{
+router.get("/profile/:email",(req,res)=>{
+    //console.log("profile");
     organizer.findOne({"email":req.params.email},function(err, profileInfo){
               if(err){
                 next(err)
               }else{
-                res.json({status: "successfull" , message:"Here is your info..." , data:{userdata: profileInfo.name}})
+                res.json({status: "successfull" , message:"Here is your info..." , data:{userdata: profileInfo}})
               }
     })
   })
+
+router.get('/username/:email',(req,res)=> {
+    organizer.findOne({"email": req.params.email}, function(err, info){
+      if(err){
+        next(err)
+      }else{
+        console.log(info)
+        res.json({status:"Successful", message:"Here is your username" , data:{userdata: info}})
+      }
+    })
+})
+
+router.put("/profile/:email",(req,res)=>{
+  
+    const {error, isValid}= validateOrgProfileInput(req.body)     
+    
+    if (!isValid) {
+      console.log("abb")
+     return res.status(400).json(errors);
+   }else{
+     console.log("updateprofile");
+     organizer.findOneAndUpdate({"email":req.params.email},{name:req.body.name, email:req.body.email, password:req.body.password, mobileNo:req.body.mobileNo, address: req.body.address, pincode:req.body.pincode},function(err,result){
+     if(err){
+       next(err)
+     }else{
+       res.json({status:"successful", message:"Info Updated successfully..", data:null})
+     }
+ 
+     })
+   }
+  })
+ 
 
 router.post('/login', (req,res)=> {
     

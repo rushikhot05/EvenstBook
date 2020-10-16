@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import M from "materialize-css";
 import { useHistory } from "react-router-dom";
-import Navbar from '../layout/Navbar'
+import NavbarOrganizer from '../layout/NavbarOrganizer'
     
 
 const CreatePost = () => {
@@ -34,7 +34,7 @@ const CreatePost = () => {
             }
             else{
                 M.toast({html:"Created post Successfully",classes:"#43a047 green darken-1"})
-                history.push('/dashboard')
+                history.push('/timelineorganizer')
             }
          }).catch(err=>{
          })
@@ -57,48 +57,50 @@ const CreatePost = () => {
     }
 
     return (
-        <div className="home" style={{margin:"auto", width:"50%"}}>
-            <Navbar />
-                <div className="card input-field"
-            style={{
-                margin:"30px auto",
-                maxWidth: "500px",
-                padding: "20px",
-                textAlign: "center"
-            }}>
-                <input 
-                    type="text"
-                    placeholder="title"
-                    value={title}
-                    onChange= { (e) => setTitle(e.target.value)}
-                />
-                <input 
-                    type="text"
-                    placeholder="caption"
-                    value={caption}
-                    onChange= { (e) => setCaption(e.target.value)}
-                />
-                <input 
-                    type="text"
-                    placeholder="URL to event page"
-                    value={event_url}
-                    onChange= { (e) => setEventUrl(e.target.value)}
-                />
-                <div className= "file-field input-field">
-                    <div className="btn btn-large waves-effect waves-light hoverable blue accent-3">
-                        <span>Upload Photo</span>
-                        <input
-                            type="file"
-                            onChange={(e) => setPhoto(e.target.files[0])}/>
+        <div>
+            <NavbarOrganizer />
+                <div className="home" style={{margin:"auto", width:"50%"}}>
+                    <div className="card input-field"
+                style={{
+                    margin:"30px auto",
+                    maxWidth: "500px",
+                    padding: "20px",
+                    textAlign: "center"
+                }}>
+                    <input 
+                        type="text"
+                        placeholder="title"
+                        value={title}
+                        onChange= { (e) => setTitle(e.target.value)}
+                    />
+                    <input 
+                        type="text"
+                        placeholder="caption"
+                        value={caption}
+                        onChange= { (e) => setCaption(e.target.value)}
+                    />
+                    <input 
+                        type="text"
+                        placeholder="URL to event page"
+                        value={event_url}
+                        onChange= { (e) => setEventUrl(e.target.value)}
+                    />
+                    <div className= "file-field input-field">
+                        <div className="btn btn-large waves-effect waves-light hoverable blue accent-3">
+                            <span>Upload Photo</span>
+                            <input
+                                type="file"
+                                onChange={(e) => setPhoto(e.target.files[0])}/>
+                        </div>
+                        <div className="file-path-wrapper">
+                            <input className="file-path validate" type="text"/>
+                        </div>
                     </div>
-                    <div className="file-path-wrapper">
-                        <input className="file-path validate" type="text"/>
-                    </div>
+                    <button className="btn waves-effect waves-light #64b5f6 blue darken-1"
+                            onClick= {() => postDetails()}>
+                        Submit Post
+                    </button>
                 </div>
-                <button className="btn waves-effect waves-light #64b5f6 blue darken-1"
-                        onClick= {() => postDetails()}>
-                    Submit Post
-                </button>
             </div>
         </div>
     )

@@ -81,7 +81,7 @@ class Profile extends Component {
         fetch("/api/users/profile/"+em)
         .then(res => res.json())
         .then(data=>{
-            localStorage.setItem('user_name',data.data.userdata.name)
+            // localStorage.setItem('user_name',data.data.userdata.name)
            this.setState({
             name: data.data.userdata.name,
             email: data.data.userdata.email,

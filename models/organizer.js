@@ -15,7 +15,19 @@ const organizerSchema = new mongoose.Schema({
     type: String,
     trim:true,
     required: true
+    },
+    mobileNo:{
+        type:Number,
+        trim:true, 
+    },
+    address:{
+        type:String,
+        trim:true
+    },
+    pincode:{
+        type:Number,
+        trim:true
     }
 })
 
-module.exports= mongoose.model('organizer',organizerSchema) 
+module.exports= mongoose.model('organizer',organizerSchema)

@@ -5,7 +5,6 @@ import setAuthToken from "./utils/setAuthToken";
 import { setCurrentUser, logoutUser } from "./actions/authActions";
 import { Provider } from "react-redux";
 import store from "./store.js";
-import Notifications from "react-notify-toast";
 
 // import Navbar from './components/layout/Navbar';
 import Landing from './components/layout/Landing';
@@ -14,6 +13,7 @@ import LoginOrganizer from './components/auth/LoginOrganizer'
 import RegisterOrganizer from './components/auth/RegisterOrganizer'
 import Register from './components/auth/Register';
 import Profile from './components/profile/Profile';
+import OrganizerProfile from './components/profile/OrganizerProfile'
 import PrivateRoute from "./components/private-route/PrivateRoute";
 import Dashboard from "./components/dashboard/Dashboard";
 import CreatePost from "./components/createPost/CreatePost"
@@ -58,6 +58,7 @@ class App extends Component {
             <PrivateRoute exact path="/dashboard" component= {Dashboard} />
             <Switch>
               <PrivateRoute exact path="/profile" component={Profile} />
+              <PrivateRoute exact path="/organizerprofile" component={OrganizerProfile} />
               <PrivateRoute exact path="/createPost" component={CreatePost} />
               <PrivateRoute exact path="/timeline" component={Timeline} />
               <PrivateRoute exact path="/timelineorganizer" component={TimelineOrganizer} />
