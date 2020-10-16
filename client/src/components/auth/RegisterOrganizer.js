@@ -60,9 +60,9 @@ class RegisterOrganizer extends Component {
                             Back to home
                         </Link>
                         <div className="col s12" style={{ paddingLeft: "11.250px"}}>
-                            <h4><b>Register</b> below</h4>
+                            <h4><b>Register</b> as an Organizer below</h4>
                             <p className="grey-text text-darken-1">
-                                Already have an account? <Link to="/login">Log in</Link>
+                                Already have an account? <Link to="/loginorganizer">Log in</Link>
                             </p>
                         </div>
                         <form noValidate onSubmit={this.onSubmit}>

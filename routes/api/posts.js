@@ -16,6 +16,15 @@ router.get('/allpost',(req,res)=>{
     
 })
 
+router.get('/allposts/:name',(req,res)=> {
+    Post.find({"name":req.params.name})
+    .sort('-createdAt')
+    .then((posts)=>{
+        res.json({posts})
+    }).catch(err=>{
+        console.log(err)
+    })
+})
 
 router.post('/createpost',(req,res)=>{
     const {title,caption,photo, event_url} = req.body 
@@ -26,8 +35,8 @@ router.post('/createpost',(req,res)=>{
         title:req.body.title,
         caption:req.body.caption,
         photo:req.body.photo,
-        event_url: req.body.event_url
-        // name:req.body.name,
+        event_url: req.body.event_url,
+        name:req.body.name
         // event_url:req.body.event_url
         
     })

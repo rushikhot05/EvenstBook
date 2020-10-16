@@ -8,37 +8,47 @@ const organizer= require("../../models/organizer")
 
 const validateRegisterInput= require("../../validation/register")
 const validateLoginInput= require("../../validation/login")
-
 router.post('/register',(req,res)=> {
 
-    const {errors, isValid}= validateRegisterInput(req.body);
-    if(!isValid){
-        return res.status(400).json(errors);
+const {errors, isValid}= validateRegisterInput(req.body);
+if(!isValid){
+    return res.status(400).json(errors);
+}
+organizer.findOne({email: req.body.email}).then(user=> {
+    if(user){
+         return res.status(400).json({email: "Email already exist!"})
     }
-    organizer.findOne({email: req.body.email}).then(user=> {
-        if(user){
-            return res.status(400).json({email: "Email already exist!"})
-        }
-        else{
-            const newOrganizer= new organizer({
-                name:req.body.name,
-                email:req.body.email,
-                password:req.body.password
-            });
-            bcrypt.genSalt(10,(err, salt)=> {
-                bcrypt.hash(newOrganizer.password, salt,(err,hash) => {
-                    if(err) throw err;
-                    newOrganizer.password= hash;
-                    newOrganizer
-                    .save()
-                    .then(user => res.json(user))
-                    .catch(err => console.log(err))
+    else{
+        const newOrganiser= new organizer({
+            name:req.body.name,
+            email:req.body.email,
+            password:req.body.password
+        });
+        bcrypt.genSalt(10,(err, salt)=> {
+            bcrypt.hash(newOrganiser.password, salt,(err,hash) => {
+                if(err) throw err;
+                newOrganiser.password= hash;
+                newOrganiser
+                .save()
+                .then(user => res.json(user))
+                .catch(err => console.log(err))
 
-                })
             })
-        }
-    })
+        })
+    }
 })
+})
+
+
+router.get("/username/:email",(req,res)=>{
+    organizer.findOne({"email":req.params.email},function(err, profileInfo){
+              if(err){
+                next(err)
+              }else{
+                res.json({status: "successfull" , message:"Here is your info..." , data:{userdata: profileInfo.name}})
+              }
+    })
+  })
 
 router.post('/login', (req,res)=> {
     

@@ -18,13 +18,13 @@ class Login extends Component {
     componentDidMount () {
         //If logged in and user navigates to login page, should redirect them to Dashboard
         if (this.props.auth.isAuthenticated) {
-            this.props.history.push("/dashboard");
+            this.props.history.push("/timeline");
         }
     }
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.auth.isAuthenticated) {
-            this.props.history.push("/dashboard") //Push user to dashboard when they login
+            this.props.history.push("/timeline") //Push user to dashboard when they login
         }
         if (nextProps.errors) {
             this.setState({
@@ -63,7 +63,7 @@ class Login extends Component {
                             Back to home
                         </Link>
                         <div className="col s12" style={{ paddingLeft: "11.250px"}}>
-                            <h4><b>Login</b> below</h4>
+                            <h4><b>Login</b> as a Student below</h4>
                             <p className="grey-text text-darken-1">
                                 Don't have an account? <Link to="/register">Register</Link>
                             </p>
@@ -76,13 +76,14 @@ class Login extends Component {
                                     error={errors.email}
                                     id="email"
                                     type="email"
+                                    required
                                     className= {classnames("", {
                                         invalid: errors.email || errors.emailnotfound
                                     })}
                                 />
                                 <label htmlFor="email">Email</label>
-                                <span className="red-text">
-                                    {errors.email}
+                                <span className="error">
+                                    {errors.email} 
                                     {errors.emailnotfound}
                                 </span>
                             </div>
@@ -93,14 +94,15 @@ class Login extends Component {
                                     error={errors.password}
                                     id="password"
                                     type="password"
+                                    required
                                     className={classnames("",{
                                         invalid:errors.password || errors.passwordincorrect
                                     })}
                                 />
                                 <label htmlFor="password">Password</label>
-                                <span className="red-text">
+                                <span className="error">
                                     {errors.password}
-                                    {errors.passwrodincorrect}
+                                    {errors.passwordincorrect}
                                 </span>
                             </div>
                             <div className="col s12" style={{ paddingLeft: "11.250px" }}>

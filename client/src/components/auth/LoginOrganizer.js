@@ -18,13 +18,13 @@ class LoginOrganizer extends Component {
     componentDidMount () {
         //If logged in and user navigates to login page, should redirect them to Dashboard
         if (this.props.auth.isAuthenticated) {
-            this.props.history.push("/dashboard");
+            this.props.history.push("/timelineorganizer");
         }
     }
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.auth.isAuthenticated) {
-            this.props.history.push("/dashboard") //Push user to dashboard when they login
+            this.props.history.push("/timelineorganizer") //Push user to dashboard when they login
         }
         if (nextProps.errors) {
             this.setState({
@@ -49,6 +49,12 @@ class LoginOrganizer extends Component {
         this.props.loginOrganizer(userData);
         const email_= this.state.email;
         localStorage.setItem('email',email_);
+        fetch("/api/organizer/username/"+ email_)
+        .then(res => res.json())
+        .then(data =>{
+            console.log(data.data.userdata)
+            localStorage.setItem('user_name',data.data.userdata);
+        })
     };
 
     render() {
@@ -63,9 +69,9 @@ class LoginOrganizer extends Component {
                             Back to home
                         </Link>
                         <div className="col s12" style={{ paddingLeft: "11.250px"}}>
-                            <h4><b>Login</b> below</h4>
+                            <h4><b>Login</b> as an Organizer below</h4>
                             <p className="grey-text text-darken-1">
-                                Don't have an account? <Link to="/register">Register</Link>
+                                Don't have an account? <Link to="/registerOrganizer">Register</Link>
                             </p>
                         </div>
                         <form noValidate onSubmit={this.onSubmit}>

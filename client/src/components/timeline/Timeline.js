@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom"
+import Navbar from '../layout/Navbar'
 
 const Timeline = () => {
     const [data, setData] = useState([])
@@ -19,6 +20,7 @@ const Timeline = () => {
 
     return (
         <div className="home" style={{margin:"auto", width:"50%"}}>
+            <Navbar />
             {
                 data.map(item => {
                     return (

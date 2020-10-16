@@ -7,6 +7,7 @@ class Dashboard extends Component {
     onLogoutClick = e => {
         e.preventDefault();
         this.props.logoutUser();
+        this.props.history.push("/");
     };
 
     onProfileClick = e => {

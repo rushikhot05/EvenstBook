@@ -1,7 +1,13 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
+import { logoutUser } from "../../actions/authActions";
 
 class Navbar extends Component {
+    onLogoutClick = e => {
+        e.preventDefault();
+        this.props.logoutUser();
+    };
     render() {
         return (
             <div className="navbar" style={{backgroundColor:"eea29a"}}>
@@ -41,7 +47,8 @@ class Navbar extends Component {
                             </li>
                             <li>
                                 <Link
-                                    to="/profile"
+                                    // onClick={this.onLogoutClick}
+                                    to="/dashboard"
                                     style={{
                                         fontFamily: "monospace"
                                     }}

@@ -13,8 +13,7 @@ class Register extends Component {
             email: "",
             password: "",
             password2: "",
-            errors: {}
-        };
+            errors: {}        };
     }
 
     componentDidMount () {
@@ -44,7 +43,7 @@ class Register extends Component {
             email: this.state.email,
             password: this.state.password,
             password2: this.state.password2
-        };
+        };            
         this.props.registerUser(newUser, this.props.history);        
     };
 
@@ -60,12 +59,12 @@ class Register extends Component {
                             Back to home
                         </Link>
                         <div className="col s12" style={{ paddingLeft: "11.250px"}}>
-                            <h4><b>Register</b> below</h4>
+                            <h4><b>Register</b> as a Student below</h4>
                             <p className="grey-text text-darken-1">
                                 Already have an account? <Link to="/login">Log in</Link>
                             </p>
                         </div>
-                        <form noValidate onSubmit={this.onSubmit}>
+                        <form noValidate onSubmit={this.onSubmit} ref = {form => this.form = form }>
                             <div className="input-field col s12">
                                 <input
                                     onChange={this.onChange}
@@ -125,7 +124,7 @@ class Register extends Component {
                             <div className="col s12" style={{ paddingLeft: "11.250px" }}>
                                 <button 
                                     style={{
-                                        width: "150px",
+                                        width: "160px",
                                         borderRadius: "3px",
                                         letterSpacing: "1.5px",
                                         marginTop: "1rem"
@@ -156,5 +155,5 @@ const mapStateToProps = state => ({
 
 export default connect(
     mapStateToProps,
-    { registerUser}
+    { registerUser }
 ) (withRouter(Register));
