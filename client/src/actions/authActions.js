@@ -89,7 +89,7 @@ export const userProfile = (profileData, history) => dispatch => {
     var email__=localStorage.getItem('email');
     axios
         .put("/api/users/profile/"+ email__,profileData)
-        .then(res => history.push("/dashboard"))
+        .then(res => history.push("/timeline"))
         .catch(err => 
             dispatch({
                 type:GET_ERRORS,

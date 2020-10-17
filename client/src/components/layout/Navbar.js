@@ -1,16 +1,24 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-import { logoutUser } from "../../actions/authActions";
+import { connect } from "react-redux";
+import { logoutUser, getProfile } from "../../actions/authActions";
 
 class Navbar extends Component {
     onLogoutClick = e => {
         e.preventDefault();
         this.props.logoutUser();
     };
+
+    onProfileClick = e => {
+        e.preventDefault();
+        this.props.getProfile();
+        this.props.history.push("/profile");
+    };
+
     render() {
         return (
-            <div className="navbar" style={{backgroundColor:"eea29a"}}>
+            <div className="navbar">
                 <nav className="z-depth-0">
                     <div className="nav-wrapper">
                         <Link
@@ -31,19 +39,17 @@ class Navbar extends Component {
                                     }}
                                     className="right hide-on-med-and-down">
                                     {/* <i className="material-icons">account_box</i> */}
-                                    Profile        
+                                    <span onClick={this.onProfileClick}></span>Profile        
                                 </Link>        
                             </li>
                             <li>
                                 <Link
-                                    // onClick={this.onLogoutClick}
-                                    to="/dashboard"
                                     style={{
                                         fontFamily: "monospace"
                                     }}
                                     className="right hide-on-med-and-down">
                                     {/* <i className="material-icons">account_box</i> */}
-                                    Logout        
+                                    <span onClick={this.onLogoutClick}>Logout</span>       
                                 </Link>        
                             </li>
                         </ul>
@@ -54,4 +60,17 @@ class Navbar extends Component {
     }
 }
 
-export default Navbar;
+Navbar.propTypes = {
+    logoutUser: PropTypes.func.isRequired,
+    // getOrganizerProfile: PropTypes.func.isRequired,
+    auth: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => ({
+    auth: state.auth
+});
+
+export default connect (
+    mapStateToProps,
+    { logoutUser }
+)(Navbar);

@@ -18,7 +18,7 @@ class NavbarOrganizer extends Component {
 
     render() {
         return (
-            <div className="navbar" style={{backgroundColor:"eea29a"}}>
+            <div className="navbar">
                 <nav className="z-depth-0">
                     <div className="nav-wrapper">
                         <Link

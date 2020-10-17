@@ -46,7 +46,7 @@ class App extends Component {
     return (
       <Provider store={store}>
         <Router>
-        <div className="App" style={{backgroundColor:"#eea29a",
+        <div className="App" style={{backgroundColor:"#ffffff",
                                     backgroundSize: "100% 100%", height:"100%"}}>
           {/* <Navbar /> */}
           <Route exact path="/" component={Landing} />
